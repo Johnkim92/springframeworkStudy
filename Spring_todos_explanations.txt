@@ -1,0 +1,45 @@
+일정 관리
+
+1. 일정등록 insertTodos
+고유번호 작성일 작성자 시일 해야할일 실행여부 서명
+bno(seq_todos) regDate writer doDate todo done_stat sign updateDate
+
+실행여부 '1' => 미실행
+실행여부 '2' => 실행
+
+2. 일정 확인 getlist
+writer doDate toDo done sign
+SELECT * FROM tbl_todos WHERE bno > 0 ORDER BY doDate, done_stat
+
+3. 상세 일정 확인 get(bno)
+
+4. 일정 수정 update(bnoTodosVo todos)
+
+5. 일정 삭제 removeTodos(bno)
+
+6. 일정 수행 완료 updateDoneStat(TodosVo todos)
+
+DB tbl_todos
+create sequence seq_todos start with 1;
+create table tbl_todos (
+bno number(10,2),
+writer varchar2(40) not null,
+doDate Date not null,
+regDate Date default sysdate,
+todo varchar2(1000) not null,
+done_stat varchar2(10) default '1' not null,
+sign varchar2(100) default '서명' not null,
+updateDate Date default sysdate,
+CONSTRAINT pk_todos PRIMARY KEY (bno));
+
+
+*더미 데이터 생성
+insert into tbl_todos (bno, writer, doDate, regDate, todo) values (seq_todos.NEXTVAL, 'ksk', '20200606', sysdate, '정보처리기사시험 13시');
+
+insert into tbl_todos (bno, writer, doDate, regDate, todo) values (seq_todos.NEXTVAL, 'ksk00', '20200606', sysdate, '정보처리기능사시험 9시');
+
+insert into tbl_todos (bno, writer, doDate, regDate, todo) values (seq_todos.NEXTVAL, 'ksk01', '20200607', sysdate, '시험을 봤으니 신나게 논다.');
+
+insert into tbl_todos (bno, writer, doDate, regDate, todo) values (seq_todos.NEXTVAL, 'ksk02', '20200608', sysdate, '신나게 놀았으니 학원에서 열심히 코딩을 한다.');
+
+insert into tbl_todos (bno, writer, doDate, regDate, todo) values (seq_todos.NEXTVAL, 'ksk026', '20200515', sysdate, '테스트코드');
